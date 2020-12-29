@@ -1,0 +1,23 @@
+{
+  "name": "basic_chess_js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "dev": "webpack --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "babel-loader": "^8.2.2",
+    "babel-preset-env": "^1.7.0",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.0"
+  },
+  "dependencies": {
+    "chess.js": "^0.11.0"
+  }
+}
