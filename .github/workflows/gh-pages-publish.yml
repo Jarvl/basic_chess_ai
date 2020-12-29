@@ -4,8 +4,9 @@
 name: Publish to Github Pages
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - main
 
 env:
   NODE_VERSION: '14.15.3'
@@ -28,5 +29,5 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./
+        publish_dir: ./public
 
