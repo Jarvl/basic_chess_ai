@@ -1,14 +1,13 @@
 import Chess from 'chess.js'
 
-// function displayBoard(boardAscii) {
-//   document.getElementById("board1").innerHTML = "<pre>" + boardAscii + "</pre>"
-// }
-
-// Nice and dirty
 function displayMoveHistory(moveHistory) {
+
+
   // Format into white/black moves on one line
   var moveHistoryHtml = moveHistory.reduce(function(accumulator, move, index) {
-    return accumulator + move + ((index % 2) ? "<br>" : " ")
+    const isNewMoveLine = !(index % 2)
+    const moveLineNum = Math.floor(index / 2) + 1
+    return accumulator + (isNewMoveLine ? `<br />${moveLineNum}.` : '') + ` ${move}`
   }, "")
 
   document.getElementById("moveHistory").innerHTML = moveHistoryHtml
@@ -26,19 +25,6 @@ var pieceValues = {
   [game.QUEEN]: 9,
   [game.KING]: 1000,
 }
-
-// var randomMoveIntervalId = null
-
-// randomMoveIntervalId = setInterval(function() {
-//   if (!game.game_over()) {
-//     var moves = game.moves()
-//     var randomMove = moves[Math.floor(Math.random() * moves.length)]
-//     game.move(randomMove)
-//     board.position(game.fen())
-//   } else {
-//     clearInterval(randomMoveIntervalId)
-//   }
-// }, 1000)
 
 var calculateBestMove = function(game) {
 
