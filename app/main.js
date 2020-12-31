@@ -1,8 +1,6 @@
 import Chess from 'chess.js'
 
 function displayMoveHistory(moveHistory) {
-
-
   // Format into white/black moves on one line
   var moveHistoryHtml = moveHistory.reduce(function(accumulator, move, index) {
     const isNewMoveLine = !(index % 2)
@@ -12,7 +10,6 @@ function displayMoveHistory(moveHistory) {
 
   document.getElementById("moveHistory").innerHTML = moveHistoryHtml
 }
-
 
 var game = Chess()
 var boardId = 'board1'
@@ -26,33 +23,62 @@ var pieceValues = {
   [game.KING]: 1000,
 }
 
-var calculateBestMove = function(game) {
+// TODO: not fully working? I dont think it's calculating the piece values correctly. All board values are -1 when a rook/knight/etc. could be taken by white next turn
+var getBoardValue = function(move) {
+  // Get board layout assuming move was made
+  game.move(move)
+  // Empty squares return as null, which will be ignored
+  const boardLayout = game.board().flat().filter(function(val) { return val !== null })
+  game.undo()
+  return boardLayout.reduce(function(accumulator, square) {
+    let value = pieceValues[square.type]
+    // Black will always have a negative score, white will always have a positive score
+    if (square.color === game.BLACK) {
+      value = -value
+    }
+    return accumulator + value
+  }, 0)
+}
 
-  var newGameMoves = game.moves({verbose: true});
-  var moveValues = newGameMoves.reduce(function(accumulator, moveObj) {
-    var pieceObj = game.get(moveObj.to)
-    var pieceValue = (pieceObj === null) ? 0 : pieceValues[pieceObj.type]
-    return Object.assign(accumulator, { [moveObj.san]: pieceValue }) // moveObj.san == Move in algebraic notation
+var calculateBestMove = function(game) {
+  var possibleMoves = game.moves();
+  var moveValues = possibleMoves.reduce(function(accumulator, move) {
+    return Object.assign(accumulator, { [move]: getBoardValue(move) })
   }, {});
 
+  console.log(moveValues)
+
+  // for (let key in possibleMoves) {
+  //   if(possibleMoves.hasOwnProperty(key)) {
+  //     let boardValue = getBoardValue(possibleMoves[key].san)
+  //     console.log(possibleMoves[key].san, boardValue)
+  //   }
+  // }
+
+  // var moveValues = possibleMoves.reduce(function(accumulator, moveObj) {
+  //   var pieceObj = game.get(moveObj.to)
+  //   var pieceValue = (pieceObj === null) ? 0 : pieceValues[pieceObj.type]
+  //   return Object.assign(accumulator, { [moveObj.san]: pieceValue }) // moveObj.san == Move in algebraic notation
+  // }, {});
+
+  var currentTurn = game.turn()
   var bestMove = null;
+
   for (let key in moveValues) {
     if(moveValues.hasOwnProperty(key)) {
       let bestMoveValue = (bestMove === null) ? 0 : moveValues[bestMove]
-      if (moveValues[key] > bestMoveValue) {
+      if (
+        (currentTurn === game.BLACK && moveValues[key] < bestMove)
+        || (currentTurn === game.WHITE && moveValues[key] > bestMove)
+      ) {
         bestMove = key
       }
     }
   }
 
-  console.log(bestMove);
-
   if (bestMove === null) {
     bestMove = game.moves()[Math.floor(Math.random() * game.moves().length)]
   }
-  console.log(bestMove);
-
-  console.log(moveValues)
 
   return bestMove;
 };
