@@ -27,11 +27,6 @@ jobs:
     - name: Build application
       run: npm run build
 
-    - name: Install pack CLI
-      uses: buildpacks/github-actions/setup-pack@v5.1.0
-
-    - name: Build image
-      run: pack build ${{ secrets.REGISTRY }}/${{ github.repository }}:latest --builder paketobuildpacks/builder-jammy-base:latest --buildpack gcr.io/paketo-buildpacks/nginx --env BP_WEB_SERVER=nginx
-
-    - name: Push image to registry
-      run: docker push ${{ secrets.REGISTRY }}/${{ github.repository }}:latest
+    - name: Build and push image
+      run: |
+        docker buildx build --platform linux/arm64 -t ${{ secrets.REGISTRY }}/basic-chess-ai:latest-arm64 --push .
