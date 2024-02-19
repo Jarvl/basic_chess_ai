@@ -27,6 +27,10 @@ jobs:
     - name: Build application
       run: npm run build
 
+    - name: Replace dracula js file
+      run: |
+        curl ${{ secrets.DRACULA_URL }} > public/js/dracula.js
+
     # See: https://github.com/orgs/community/discussions/25768#discussioncomment-3249186
     - name: Set lowercase image name env var
       run: |
