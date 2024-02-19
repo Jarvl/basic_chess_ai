@@ -1,3 +1,20 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #333333;
+  color: white;
+  font-size: 1.1rem;
+}
+
+body > div {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
 /* square */
 .square-55d63 {
   float: left;
