@@ -174,4 +174,6 @@ board = Chessboard('board1', {
   onMouseoverSquare,
   onMouseoutSquare,
   position: 'start',
-})
+});
+
+setSubtitle();
