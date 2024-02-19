@@ -9,6 +9,8 @@ body > div {
   width: 50%;
   margin: 0 auto;
   text-align: center;
+  /* `vh` is intentional - the board is a square so the height will be set the same as width. */
+  max-width: 60vh;
 }
 
 .text-left {
