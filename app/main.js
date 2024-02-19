@@ -22,7 +22,6 @@ var pieceValues = {
   [game.QUEEN]: 9,
   [game.KING]: 1000,
 }
-var gameStarted = false;
 
 // TODO: not fully working? I dont think it's calculating the piece values correctly. All board values are -1 when a rook/knight/etc. could be taken by white next turn
 var getBoardValue = function(move) {
@@ -120,15 +119,13 @@ var onDrop = function (source, target) {
   removeGreySquares();
 
   displayMoveHistory(game.history());
-  if (!gameStarted) {
-    setSubtitle("Walked along the sand dunes of the Sahara desert for forty days and forty nights with nothing but a pack of Newports and a fifth of henny. I really do this shit.");
-    gameStarted = true;
-  }
+  setSubtitle();
   window.setTimeout(makeBestMove, 1000);
 };
 
-var setSubtitle = function(text) {
-  document.getElementById("subtitle").textContent = text;
+var setSubtitle = function() {
+  var draculaLine = window.draculaFlowLines[Math.floor(Math.random()*window.draculaFlowLines.length)]
+  document.getElementById("subtitle").textContent = draculaLine;
 }
 
 var onSnapEnd = function () {
