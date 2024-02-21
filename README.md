@@ -20,3 +20,5 @@ import secrets
 secrets.token_urlsafe(24)
 # e.g. hXQCliWSIfOVCpFdslPMr3iMuSvTZelc
 ```
+
+Or a number can just be used and incremented.

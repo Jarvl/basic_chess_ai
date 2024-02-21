@@ -119,13 +119,13 @@ var onDrop = function (source, target) {
   removeGreySquares();
 
   displayMoveHistory(game.history());
-  setSubtitle();
+  setBotPhrase();
   window.setTimeout(makeBestMove, 1000);
 };
 
-var setSubtitle = function() {
-  var draculaLine = window.draculaFlowLines[Math.floor(Math.random()*window.draculaFlowLines.length)]
-  document.getElementById("subtitle").textContent = draculaLine;
+var setBotPhrase = function() {
+  var botPhrase = window.botPhrases[Math.floor(Math.random()*window.botPhrases.length)]
+  document.getElementById("botPhrase").textContent = botPhrase;
 }
 
 var onSnapEnd = function () {
@@ -176,4 +176,4 @@ board = Chessboard('board1', {
   position: 'start',
 });
 
-setSubtitle();
+setBotPhrase();
