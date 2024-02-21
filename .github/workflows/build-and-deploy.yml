@@ -45,11 +45,3 @@ jobs:
         tags: ${{ secrets.REGISTRY }}/${{ env.IMAGE_NAME }}${{ matrix.image-suffix }}:latest
         build-args: |
           BOT_PHRASES_URL=https://static.glob.casa/basic-chess-ai/bot-phrases/${{ matrix.bot-phrases-file }}
-
-    # - name: Build and push image
-    #   run: |
-    #     docker buildx build --platform linux/arm64/v8 --target release -t "${{ secrets.REGISTRY }}/$IMAGE_NAME:$IMAGE_TAG" --push .
-
-    # - name: Build and push dracula image
-    #   run: |
-    #     docker buildx build --platform linux/arm64/v8 --target release -t "${{ secrets.REGISTRY }}/$IMAGE_NAME-dracula:$IMAGE_TAG" --build-arg BOT_PHRASES_URL=${{ secrets.DRACULA_URL }}" --push .
