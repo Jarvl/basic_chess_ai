@@ -1,4 +1,4 @@
-FROM node:14.15.3-alpine AS builder
+FROM arm64v8/node:14.15.3-alpine AS builder
 WORKDIR /app
 COPY package*.json .
 RUN npm install
