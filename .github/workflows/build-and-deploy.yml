@@ -40,11 +40,11 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
-        platforms: linux/amd64,linux/arm64/v8
+        platforms: linux/arm64/v8
         push: true
         tags: ${{ secrets.REGISTRY }}/${{ env.IMAGE_NAME }}${{ matrix.image-suffix }}:latest
         build-args: |
-          BOT_PHRASES_URL="https://static.glob.casa/basic-chess-ai/bot-phrases/${{ matrix.bot-phrases-file }}"
+          BOT_PHRASES_URL=https://static.glob.casa/basic-chess-ai/bot-phrases/${{ matrix.bot-phrases-file }}
 
     # - name: Build and push image
     #   run: |
